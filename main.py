@@ -13,6 +13,13 @@ def get_client() -> Client:
 def main():
     supabase = get_client()
 
+    # Example: get only games released in 2017
+    response_2017 = supabase.table("nintendo_games") \
+    .select("title, platform, release_year") \
+        .eq("release_year", 2017) \
+        .execute()
+    print("2017 games:", response_2017.data)
+
     # Replace "your_table" with a real table in your Supabase project
     # For demo purposes: SELECT * LIMIT 5
     response = supabase.table("nintendo_games").select("*").limit(5).execute()
